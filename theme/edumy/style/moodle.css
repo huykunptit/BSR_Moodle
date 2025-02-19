@@ -1,0 +1,25 @@
+h2  {
+    font-size:16px !important;
+}
+
+h2.ccnMdlHeading {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard_main_content a {
+    color: #000;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+
+}
+
+

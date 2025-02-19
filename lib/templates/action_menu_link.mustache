@@ -1,0 +1,69 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template core/action_menu_link
+
+    Action menu link.
+
+    Example context (json):
+    {
+        "text": "Example link text",
+        "showtext": true,
+        "url": "http://example.com/link"
+    }
+}}
+{{^disabled}}
+    <a href="{{url}}" class="{{$actionmenulinkclasses}}aabtn {{classes}}{{/actionmenulinkclasses}}" 
+       {{#attributes}}{{name}}="{{value}}" {{/attributes}} 
+       id="dynamicLink">
+        {{#icon}}
+            {{#pix}}{{key}}, {{component}}, {{title}}{{/pix}}
+        {{/icon}}
+        {{#showtext}}
+            <span class="menu-action-text">{{{text}}}</span>
+        {{/showtext}}
+    </a>
+{{/disabled}}
+{{#disabled}}
+    <span class="currentlink" role="menuitem">{{#icon}}{{#pix}}{{key}},{{component}},{{title}}{{/pix}}{{/icon}}{{{text}}}</span>
+{{/disabled}}
+
+<script>
+    $(document).ready(function() {
+        var links = document.querySelectorAll('a#dynamicLink');
+        
+        links.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                var hrefValue = link.href;
+                
+                // Check if the href contains the word 'preview'
+                if (hrefValue.includes('preview')) {
+                    event.preventDefault(); // Prevent the default anchor behavior
+                    
+                    // Open in a new window with specific features
+                    var newWindow = window.open(hrefValue, 'PreviewWindow', 'width=800,height=600,menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes');
+                    
+                    // Check if the window was blocked by popup blocker
+                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                        alert('Popup blocked. Please allow popups for this site.');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
